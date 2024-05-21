@@ -35,6 +35,8 @@
 #' @param ... Additional parameters which can be passed to \code{collapse::collap()}
 #'
 #' @import data.table
+#' @import collapse
+#' @import logger
 #' @export
 aggregator <- function(
   df,                      # data.table::data.table
@@ -271,6 +273,7 @@ aggregate_data_from_config <- function(df, config, ...) {
 #' @return A data.table with the method result and input columns specified
 #'
 #' @import data.table
+#' @import collapse
 categorical_aggregation <- function(df, cols, method = "freq") {
   lapply(df[, ..cols], frequency_values, method) |>
     collapse::unlist2d(idcols = "col", DT = TRUE)
@@ -278,7 +281,13 @@ categorical_aggregation <- function(df, cols, method = "freq") {
 
 #' Frequency Values function
 #'
+#' @param vec vec<character> - Vector of categorical data for aggregation
+#' @param method character - Character string specifying the method to use. One of "count", "freq" or "inv_freq"
+#'
+#' @return data.table::data.table - Object containing aggregated and to numerical values transformed data
+#'
 #' @import data.table
+#' @import collapse
 frequency_values <- function(vec, method = NULL) {
   method %||% stop("Please define a method!")
   out <- switch(method,
@@ -300,4 +309,3 @@ frequency_values <- function(vec, method = NULL) {
   )
   collapse::qDT(out[, c("x", "f")])
 }
-

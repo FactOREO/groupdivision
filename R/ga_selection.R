@@ -1,3 +1,8 @@
+### ==================================================================================================================
+# Author: Dustin Hennig
+# Role: Data Scientist at GK Artificial Intelligence for Retail AG
+# Date: May 8th 2024
+#
 # This module contains all available functions to run the selection of a given set of individuals with their
 # fitness scores. Currently implemented are
 # * random selection
@@ -5,6 +10,7 @@
 # * tournament selection
 # All provided functions return a vector containing the indices of the individuals to keep from the provided
 # vector of fitness values.
+### ==================================================================================================================
 
 #' Random selection
 #'
@@ -16,6 +22,8 @@
 #' @param seed Optional<NULL|integer> - A random seed for deterministic outcomes
 #'
 #' @return vec<integer>
+#'
+#' @export
 random_selection <- function(fitness_values, num_parents, seed = NULL) {
   if (!is.null(seed)) set.seed(seed)
   if (length(fitness_values) == 0L) stop("No fitness values provided")
@@ -33,12 +41,14 @@ random_selection <- function(fitness_values, num_parents, seed = NULL) {
 #' @param num_parents integer - The number of individuals to choose
 #'
 #' @return vec<integer>
+#'
+#' @export
 steady_state_selection <- function(fitness_values, num_parents, seed = NULL) {
   if (length(fitness_values) == 0L) stop("No fitness values provided")
   if (num_parents == 0L) stop("Number of parents to select cannot be 0!")
   if (length(fitness_values) == 1L) return(1L)
-  fitness_matrix <- matrix(c(fitness_values, seq_along(fitness_values)), ncol = 2)
-  fitness_matrix <- fitness_matrix[order(fitness_matrix[, 1], decreasing = TRUE), ]
+  fitness_matrix <- matrix(c(fitness_values, seq_along(fitness_values)), ncol = 2L)
+  fitness_matrix <- fitness_matrix[order(fitness_matrix[, 1L], decreasing = TRUE), ]
   if (num_parents >= length(fitness_values)) return(fitness_matrix[seq.int(1L, length(fitness_values), 1L), 2L])
   fitness_matrix[seq.int(1L, num_parents, 1L), 2L]
 }
@@ -54,11 +64,13 @@ steady_state_selection <- function(fitness_values, num_parents, seed = NULL) {
 #' @param seed Optional<NULL|integer> - A random seed for deterministic outcomes
 #'
 #' @return vec<integer>
+#'
+#' @export
 tournament_selection <- function(fitness_values, num_parents, tournament_size, seed = NULL) {
   if (length(fitness_values) == 0L) stop("No fitness values provided")
   if (num_parents == 0L) stop("Number of parents to select cannot be 0!")
   if (length(fitness_values) == 1L) return(1L)
-  fitness_matrix <- matrix(c(fitness_values, seq_along(fitness_values)), ncol = 2)
+  fitness_matrix <- matrix(c(fitness_values, seq_along(fitness_values)), ncol = 2L)
   if (tournament_size > length(fitness_values)) return(steady_state_selection(fitness_values, 1L, seed))
   if (tournament_size == 1L) return(random_selection(fitness_values, num_parents, seed))
   if (!is.null(seed)) set.seed(seed)

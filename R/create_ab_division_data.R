@@ -10,6 +10,11 @@
 #' @param transactions_config list - Configuration list
 #'
 #' @return Optional<data.table::data.table|error>
+#'
+#' @import collapse
+#' @import data.table
+#' @import logger
+#' @export
 create_ab_division_data <- function(items, transactions, items_config, transactions_config) {
   iM <- items_config[["master_col"]] %||% NULL
   iV <- items_config[["variant_col"]] %||% NULL

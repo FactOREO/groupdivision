@@ -5,6 +5,10 @@
 #' list of all valid arguments needed for the genetic algorithm funcitonality
 #'
 #' @param config A configuration object
+#'
+#' @return list - Configuration list of a data block
+#'
+#' @export
 parse_data_config <- function(config) {
   if (!config[["enabled"]] %||% FALSE) {
     logger::log_info("Will not parse config because enabled is set to FALSE")
@@ -77,6 +81,8 @@ get_categorical_vars <- function(config) {
 #' @param types: vec<character> A vector of types to get variables from
 #'
 #' @return Optional<vec<character>, NULL>
+#'
+#' @import logger
 get_vars_by_type <- function(config, types = NULL) {
   types %||% return(NULL)
   vars <- unlist(lapply(config[["columns"]], function(x) {
@@ -159,6 +165,8 @@ get_aggregation_weights <- function(config, cols) {
 #' @param config list - A configuration list, see example configuration
 #'
 #' @return list
+#'
+#' @import logger
 get_strategy_config <- function(config) {
   strategy <- config[["strategy"]]
   config[[strategy]] %||% {

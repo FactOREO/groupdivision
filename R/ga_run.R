@@ -11,6 +11,10 @@
 #' @param categorical_vars Optional<vec<character>|NULL> - A vector of column names to be considered categorical
 #'
 #' @return Optional<numeric|error>
+#'
+#' @import future.apply
+#' @import logger
+#' @export
 run_genetic_algorithm <- function(input_data, config, valid_genes = NULL, numerical_vars = NULL, categorical_vars = NULL) {
   if (is.null(df) || nrow(df) == 0L) {
     logger::log_fatal("Empty data passed to `run_genetic_algorithm`")

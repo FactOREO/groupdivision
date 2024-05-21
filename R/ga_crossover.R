@@ -1,10 +1,16 @@
-# This module contains all available options for the crossover step within the genetic algorithm.
-# Currently implemented are
+### ==================================================================================================================
+# Author: Dustin Hennig
+# Role: Data Scientist at GK Artificial Intelligence for Retail AG
+# Date: May 8th 2024
+#
+# This file contains all available options for the crossover step within the genetic algorithm.
+# Currently implemented are the following crossover methods
 # * single-point crossover
 # * multi-point crossover
 # * shuffle crossover
 # * uniform crossover
 # All functions return a list containing two vectors of type <Some> depending on your input.
+### ==================================================================================================================
 
 #' Single Point Crossover
 #'
@@ -16,6 +22,8 @@
 #' @param seed Optional<NULL|integer> - A random seed for deterministic outcomes
 #'
 #' @return Optional<error|list<vec<bool>,vec<bool>>>
+#'
+#' @export
 single_point_crossover <- function(parent1, parent2, seed = NULL) {
   if (!is.null(seed)) set.seed(seed)
   if (length(parent1) == 0L) stop("Cannot handle empty parents")
@@ -40,6 +48,8 @@ single_point_crossover <- function(parent1, parent2, seed = NULL) {
 #' @param seed Optional<NULL|integer> - A random seed for deterministic outcomes
 #'
 #' @return Optional<error|list<vec<bool>,vec<bool>>>
+#'
+#' @export
 multi_point_crossover <- function(parent1, parent2, k, seed = NULL) {
   if (!is.null(seed)) set.seed(seed)
   if (length(parent1) == 0L) stop("Cannot handle empty parents")
@@ -78,6 +88,8 @@ multi_point_crossover <- function(parent1, parent2, k, seed = NULL) {
 #' @param seed Optional<NULL|integer> - A random seed for deterministic outcomes
 #'
 #' @return Optional<error|list<vec<bool>,vec<bool>>>
+#'
+#' @export
 shuffled_crossover <- function(parent1, parent2, seed = NULL) {
   if (!is.null(seed)) set.seed(seed)
   if (length(parent1) == 0L) stop("Cannot handle empty parents")
@@ -100,6 +112,8 @@ shuffled_crossover <- function(parent1, parent2, seed = NULL) {
 #' @param seed Optional<NULL|integer> - A random seed for deterministic outcomes
 #'
 #' @return Optional<error|list<vec<bool>,vec<bool>>>
+#'
+#' @export
 uniform_crossover <- function(parent1, parent2, probability = 0.5, seed = NULL) {
   if (!is.null(seed)) set.seed(seed)
   if (probability > 1 || probability < 0) stop("probability must be between 0 and 1!")

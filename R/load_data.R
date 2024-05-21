@@ -7,6 +7,8 @@
 #' @return data.table::data.table
 #'
 #' @import data.table
+#' @import logger
+#' @export
 load_data <- function(config = NULL) {
   config %||% {
     ## Tried to run the data import with NULL object, return NULL invisibly
@@ -73,27 +75,3 @@ load_data <- function(config = NULL) {
     colClasses = data_types
   ), use.names = TRUE)
 }
-
-  # ## Get a look up table if master and variants are specified for later aggregations
-  # look_up_table <- NULL
-  # master_col <- items_config[["master_col"]]
-  # variant_col <- items_config[["variant_col"]]
-  # if (!is.null(master_col) && !is.null(variant_col)) {
-  #   logger::log_info("Master variant concept specified - define look up table")
-  #   look_up_table <- collapse::funique(
-  #     items[, .(mC, vC),
-  #           env = list(mC = items_config[["master_col"]],
-  #                      vC = items_config[["variant_col"]])]
-  #   )
-  #   data.table::setkeyv(look_up_table, variant_col)
-  #   logger::log_debug(as.character(str(look_up_table |> head())))
-  # }
-  # aggregate_variants <- items_config[["aggregate"]] %||% FALSE
-  # if (aggregate_variants) {
-  #   logger::log_info("Aggregate items with specified aggregation settings")
-  #   items <- aggregator.aggregate_input_data(items, items_config)
-  #   logger::log_info("Finished aggregation of items")
-  #   logger::log_debug(as.character(str(items |> head())))
-  # }
-  # list("items" = items, "look_up_table" = look_up_table)
-# }

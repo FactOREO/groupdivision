@@ -1,11 +1,17 @@
-# Tis module contains all functions to perform mutations of a given genome. There are currently the following
+### ==================================================================================================================
+# Author: Dustin Hennig
+# Role: Data Scientist at GK Artificial Intelligence for Retail AG
+# Date: May 21st 2024
+#
+# Tis file contains all functions to perform mutations of a given genome. There are currently the following
 # mutation algorithms implemented:
 # * flipping mutation
 # * inversion mutation
 # * random mutation
 # * scramble mutation
 # * swap mutation
-# All provided funtions return a vector of type <Some> depending on your input.
+# All provided functions return a vector of type <Some> depending on your input.
+### ==================================================================================================================
 
 #' Flipping Mutation
 #'
@@ -19,6 +25,8 @@
 #' @param seed Optional<NULL|integer> - A random seed for deterministic outcomes
 #'
 #' @return Optional<err|vec<bool>>
+#'
+#' @export
 flipping_mutation <- function(individual, mutation_probability = 0.5, seed = NULL) {
   if (!is.null(seed)) set.seed(seed)
   len <- length(individual)
@@ -37,6 +45,8 @@ flipping_mutation <- function(individual, mutation_probability = 0.5, seed = NUL
 #' @param seed Optional<NULL|integer> - A random seed for deterministic outcomes
 #'
 #' @return Optional<err|vec<bool>>
+#'
+#' @export
 inverse_mutation <- function(individual, seed = NULL) {
   if (!is.null(seed)) set.seed(seed)
   len <- length(individual)
@@ -61,6 +71,8 @@ inverse_mutation <- function(individual, seed = NULL) {
 #' @param seed Optional<NULL|integer> - A random seed for deterministic outcomes
 #'
 #' @return Optional<err|vec<bool>>
+#'
+#' @export
 random_mutation <- function(individual, valid_genes = c(TRUE, FALSE), mutation_probability = 0.5, seed = NULL) {
   if (!is.null(seed)) set.seed(seed)
   len <- length(individual)
@@ -85,6 +97,8 @@ random_mutation <- function(individual, valid_genes = c(TRUE, FALSE), mutation_p
 #' @param seed Optional<NULL|integer> - A random seed for deterministic outcomes
 #'
 #' @return Optional<err|vec<bool>>
+#'
+#' @export
 scramble_mutation <- function(individual, seed = NULL) {
   if (!is.null(seed)) set.seed(seed)
   len <- length(individual)
@@ -104,6 +118,8 @@ scramble_mutation <- function(individual, seed = NULL) {
 #' @param seed Optional<NULL|integer> - A random seed for deterministic outcomes
 #'
 #' @return Optional<err|vec<bool>>
+#'
+#' @export
 swap_mutation <- function(individual, seed = NULL) {
   if (!is.null(seed)) set.seed(seed)
   len <- length(individual)

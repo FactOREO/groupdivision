@@ -5,6 +5,8 @@
 #' run to make sure the provided configuration and options are valid.
 #'
 #' @return A configuration list for the further use in the program
+#'
+#' @export
 prepare_ab_division_session <- function() {
   cli_opts <- parse_cli_options()
   config <- setup_environment_config(cli_opts$conf)
@@ -37,6 +39,8 @@ parse_cli_options <- function() {
 #' @param path_to_config String representing a path to a valid configuration file.
 #'
 #' @return list - A configuration list for the further use in the program
+#'
+#' @import logger
 setup_environment_config <- function(path_to_config) {
   ## Initialize the logger to log everything on STDOUT at the beginning
   ## but enable file logging as well as specific STDOUT logging later
@@ -64,6 +68,8 @@ setup_environment_config <- function(path_to_config) {
 #' cores for parallel processing.
 #'
 #' @return NULL
+#'
+#' @import logger
 prepare_runtime_session <- function() {
   logger::log_info("Prepare runtime session for A/B Division")
   CPUS <- getOption("Ncpus") %||% 1L

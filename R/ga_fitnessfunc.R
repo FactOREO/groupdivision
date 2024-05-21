@@ -11,6 +11,9 @@
 #' @param categorical_columns vec<character> - Vector containing all column names of categorical columns for the calculation
 #'
 #' @return numeric - Fitness score value of the individual
+#'
+#' @import collapse
+#' @import data.table
 calc_fitness_score <- function(individual, df, categorical_vars = NULL, numerical_vars = NULL) {
   dt <- df
   dt[, group := individual]
@@ -32,6 +35,8 @@ calc_fitness_score <- function(individual, df, categorical_vars = NULL, numerica
 #' @param X matrix - A matrix containing the distributions of a group per row (!)
 #'
 #' @return numeric - Exact (if nrows(X) = 2) or weighted mean distance between all passed groups
+#'
+#' @import philentropy
 calculate_distance <- function(X) {
   if (nrow(X) > 2) {
     d <- philentropy::distance(X, method = "euclidean", test.na = FALSE, as.dist.obj = TRUE, mute.message = TRUE) |>
@@ -51,6 +56,7 @@ calculate_distance <- function(X) {
 #' @param numerical_vars vec<character> - Character vector of column names indicating numerical variables
 #'
 #' @import data.table
+#' @import collapse
 prepare_distance_calculation <- function(
     df,
     index_column,

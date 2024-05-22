@@ -55,8 +55,8 @@ calculate_distance <- function(X) {
 #' @param categorical_vars vec<character> - Character vector of column names indicating categorical variables
 #' @param numerical_vars vec<character> - Character vector of column names indicating numerical variables
 #'
-#' @import data.table
 #' @import collapse
+#' @import data.table
 prepare_distance_calculation <- function(
     df,
     index_column,

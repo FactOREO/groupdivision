@@ -6,6 +6,14 @@
 \usage{
 frequency_values(vec, method = NULL)
 }
+\arguments{
+\item{vec}{vec\if{html}{\out{<character>}} - Vector of categorical data for aggregation}
+
+\item{method}{character - Character string specifying the method to use. One of "count", "freq" or "inv_freq"}
+}
+\value{
+data.table::data.table - Object containing aggregated and to numerical values transformed data
+}
 \description{
 Frequency Values function
 }

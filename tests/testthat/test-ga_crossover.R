@@ -1,6 +1,3 @@
-library("testthat")
-source("../R/ga_crossover.R")
-
 ## === Single Point Crossover
 test_that("single_point_crossover generates two children with correct lengths", {
   parent1 <- c(1, 2, 3, 4, 5)

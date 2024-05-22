@@ -1,6 +1,3 @@
-library(testthat)
-source("../R/ga_selection.R")
-
 # === Random Selection
 test_that("random_selection returns the correct number of parents", {
   fitness_values <- c(0.5, 1.0, 1.5, 2.0)

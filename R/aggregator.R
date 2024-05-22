@@ -34,8 +34,8 @@
 #' \code{TRUE} / \code{FALSE} for global option setting if weights should be used
 #' @param ... Additional parameters which can be passed to \code{collapse::collap()}
 #'
-#' @import data.table
 #' @import collapse
+#' @import data.table
 #' @import logger
 #' @export
 aggregator <- function(
@@ -272,8 +272,8 @@ aggregate_data_from_config <- function(df, config, ...) {
 #'
 #' @return A data.table with the method result and input columns specified
 #'
-#' @import data.table
 #' @import collapse
+#' @import data.table
 categorical_aggregation <- function(df, cols, method = "freq") {
   lapply(df[, ..cols], frequency_values, method) |>
     collapse::unlist2d(idcols = "col", DT = TRUE)
@@ -286,8 +286,8 @@ categorical_aggregation <- function(df, cols, method = "freq") {
 #'
 #' @return data.table::data.table - Object containing aggregated and to numerical values transformed data
 #'
-#' @import data.table
 #' @import collapse
+#' @import data.table
 frequency_values <- function(vec, method = NULL) {
   method %||% stop("Please define a method!")
   out <- switch(method,

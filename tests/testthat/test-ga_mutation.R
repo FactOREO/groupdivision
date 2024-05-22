@@ -1,7 +1,3 @@
-library(testthat)
-source("../R/ga_mutation.R")
-source("../R/auxiliaries.R")
-
 ## === Flipping Mutation
 test_that("flipping_mutation does not alter individual when mutation_probability is 0", {
   individual <- c(TRUE, FALSE, TRUE, FALSE)

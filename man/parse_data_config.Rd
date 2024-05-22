@@ -9,6 +9,9 @@ parse_data_config(config)
 \arguments{
 \item{config}{A configuration object}
 }
+\value{
+list - Configuration list of a data block
+}
 \description{
 Function to parse a given config received via config::get() with the
 necessary structure provided by the example configuration. Returns a named

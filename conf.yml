@@ -1,0 +1,91 @@
+default:
+  items:
+    enabled: TRUE
+    path: "./data/items.csv"
+    columns:
+      # Column name in the items data.
+    - column: masterID
+      # Type of the column to use for reading.
+      # Possible value sare character, numeric, integer and IDate
+      type: character
+      # Leading column for aggregation on items data.
+      # If TRUE aggregation will take place!
+      is_master: TRUE
+    - column: itemID
+      type: character
+      # Specify a variant column in case of master-variant concept.
+      # This will result in a look-up-table to aggregate all provided input data
+      # on the master level.
+      is_variant: TRUE
+    - column: recommendedRetailPrice
+      type: numeric
+      # see https://rdrr.io/cran/collapse/man/fast-statistical-functions.html
+      # for all possible method options
+      method: fmean
+    - column: regularUnitPrice
+      type: numeric
+      method: fmean
+      # Only numerical columns are supported as weight columns at the moment.
+      # Specified column(s) will be used as a weight for all aggregations.
+      # is_weight: TRUE
+    - column: purchaseUnitPrice
+      type: numeric
+      method: fmean
+    - column: brand
+      type: character
+      method: fmode
+  transactions:
+    enabled: TRUE
+    path: "./data/translog"
+    pattern: "translog.*"
+    # Case considerations for the aggregation - aggregation will take place
+    # in any case, since we need to have reduced data for every item (masters or
+    # single items in case of no Master - Variant specified)
+    # 1) Master and Variant in items specified - only define the variant column
+    #    via `is_variant` parameter
+    # 2) No Master and Variant are specified - define the master column via the
+    #    `is_master` parameter
+    # 3) No items data is given - same as in 2)
+    columns:
+    - column: time
+      type: IDate
+    - column: itemID
+      type: character
+      is_variant: TRUE
+    - column: order
+      type: integer
+      method: fsum
+      is_weight: TRUE
+    - column: price
+      type: numeric
+      method: fmean
+      use_weight: TRUE
+  group_division:
+    strategy: genetic_algorithm
+    genetic_algorithm:
+      initial_values:
+        population_size: 600
+        group_size: 2
+      selection:
+        method: "steady_state" # | random | tournament
+        # tournament_size: 20
+        num_parents: 100
+        # seed: 10
+      crossover:
+        method: "uniform" # | single_point | multi_point | shuffle
+        crossover_probability: 0.5
+        # seed: 10
+      mutation:
+        method: "flipping" # | inversion | scramble | random | swap
+        mutation_probability: 0.5
+        # seed: 10
+      exit_condition:
+        n_local_optim: 25
+        n_cycles: 500
+  output:
+    result_file: "/tmp/division.csv"
+  # Parameter block for the logging functionality of the AB Division
+  logging:
+    enabled: TRUE
+    path: "/tmp/log"
+    level: INFO
